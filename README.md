@@ -1,5 +1,4 @@
 Use this as a quick-start for making websites with rust using rocket.rs
 
 ---
-
-All the javascript options are straight trash, so here's a real language.
+This is an example utilizing (the not quite done) authentication method that I'm developing for faster deployment.
