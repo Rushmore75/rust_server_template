@@ -1,18 +1,28 @@
 use rocket::{routes, fs::FileServer, serde::json::{Json, serde_json::json, Value}, get};
 
+use rust_authentication::get_state;
+use rust_authentication::Session;
+use rust_authentication::pages::{login, logout, create_account};
+
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
 
     let _rocket = rocket::build()
+        .manage(get_state())
         .mount("/", FileServer::from("www/"))
-        .mount("/", routes![example])
+        .mount("/", routes![
+               example,
+               login,
+               logout,
+               create_account,
+        ])
         .launch()
         .await?;
     Ok(())
 }
 
 #[get("/test")]
-fn example() -> Json<Value> {
+fn example(_s: Session) -> Json<Value> {
     let x = json!({
             "id": 20,
             "status": "Active",
